@@ -42,6 +42,7 @@ board_state = [0,0,0,0,0,0,0,0,0]  # 0 for empty, 1 for Cross, 2 for Circle
 player_number = 1
 win,draw = False,False
 title_x, title_y = 20, 0
+reset_wait = 5
 
 # Main loop
 running = True
@@ -57,14 +58,6 @@ while running:
     window.blit(board, (0, 80))
 
 
-    if win or draw:
-        pygame.time.delay(1000)
-        board_state = [0,0,0,0,0,0,0,0,0]
-        title = pygame.font.SysFont(None, 100)
-        title.set_bold(True)
-        title = title.render("Tic Tac Toe", True, (0, 0, 0))
-        win = False
-        draw = False
 
     # Draw the board state
     for i in range(len(board_state)):
@@ -101,10 +94,7 @@ while running:
                 player_number = 1
             elif board_state.count(1) == board_state.count(2):
                 player_number = 1
-            
     
-    
-
     # Check for win or draw condition
     if not win and not draw:
         win = status_check.win_check(board_state, win)
@@ -121,8 +111,21 @@ while running:
             title.set_bold(True)
             title = title.render(header, True, (0, 0, 0))
             title_x = 120
+
     window.blit(title, (title_x, title_y))
-    
     pygame.display.update()
+
+    if win or draw:
+        reset_wait -= 1
+        if reset_wait == 0:
+            pygame.time.delay(1000)
+            board_state = [0,0,0,0,0,0,0,0,0]
+            title = pygame.font.SysFont(None, 100)
+            title.set_bold(True)
+            title = title.render("Tic Tac Toe", True, (0, 0, 0))
+            win = False
+            draw = False
+            title_x = 20
+            reset_wait = 5
 # Quit Pygame
 pygame.quit()
