@@ -26,7 +26,7 @@ Cross = pygame.transform.scale(Cross, (120, 120))
 Circle = pygame.image.load(resource_path('assets/Circle.jpg'))
 Circle = pygame.transform.scale(Circle, (120, 120))
 
-#loading and rendering the title
+#loading and rendering the title 
 title = pygame.font.SysFont(None, 100)
 title.set_bold(True)
 title = title.render("Tic Tac Toe", True, (0, 0, 0))
@@ -41,6 +41,7 @@ positions = [
 board_state = [0,0,0,0,0,0,0,0,0]  # 0 for empty, 1 for Cross, 2 for Circle
 player_number = 1
 win,draw = False,False
+title_x, title_y = 20, 0
 
 # Main loop
 running = True
@@ -55,6 +56,15 @@ while running:
     window.fill((255, 255, 255))
     window.blit(board, (0, 80))
 
+
+    if win or draw:
+        pygame.time.delay(1000)
+        board_state = [0,0,0,0,0,0,0,0,0]
+        title = pygame.font.SysFont(None, 100)
+        title.set_bold(True)
+        title = title.render("Tic Tac Toe", True, (0, 0, 0))
+        win = False
+        draw = False
 
     # Draw the board state
     for i in range(len(board_state)):
@@ -95,11 +105,24 @@ while running:
     
     
 
-    # Check for win condition
+    # Check for win or draw condition
     if not win and not draw:
         win = status_check.win_check(board_state, win)
+        if win: 
+            print(f"Player {player_number} wins!")
+            header = f"Player {player_number} wins!"
+            title = pygame.font.SysFont(None, 80)
+            title.set_bold(True)
+            title = title.render(header, True, (0, 0, 0))
         draw = status_check.draw_check(board_state, win)
-    window.blit(title, (20,0)) 
+        if draw: 
+            header = f"Draw!"
+            title = pygame.font.SysFont(None, 100)
+            title.set_bold(True)
+            title = title.render(header, True, (0, 0, 0))
+            title_x = 120
+    window.blit(title, (title_x, title_y))
+    
     pygame.display.update()
 # Quit Pygame
 pygame.quit()
