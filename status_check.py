@@ -23,3 +23,8 @@ def win_check(board_state,win):
     elif board_state[2] == board_state[4] == board_state[6] != 0:
         print(f"Player {board_state[0]} wins!")
         return True
+
+def draw_check(board_state,win):
+    if board_state.count(0) == 0 and not win:
+        print("It's a draw!")
+        return True

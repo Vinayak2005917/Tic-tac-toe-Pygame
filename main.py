@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 pygame.init()
-import win_check
+import status_check
 
 # Set up the display
 width, height = 480,560
@@ -18,6 +18,11 @@ Cross = pygame.transform.scale(Cross, (120, 120))
 Circle = pygame.image.load('assets/Circle.jpg')
 Circle = pygame.transform.scale(Circle, (120, 120))
 
+#loading and rendering the title
+title = pygame.font.SysFont(None, 100)
+title.set_bold(True)
+title = title.render("Tic Tac Toe", True, (0, 0, 0))
+
 #the nine positions on the board
 positions = [
     (10, 90), (180, 90), (350, 90),
@@ -27,7 +32,7 @@ positions = [
 
 board_state = [0,0,0,0,0,0,0,0,0]  # 0 for empty, 1 for Cross, 2 for Circle
 player_number = 1
-win = False
+win,draw = False,False
 
 # Main loop
 running = True
@@ -83,9 +88,10 @@ while running:
     
 
     # Check for win condition
-    if not win:
-        win = win_check.win_check(board_state, win)
-
+    if not win and not draw:
+        win = status_check.win_check(board_state, win)
+        draw = status_check.draw_check(board_state, win)
+    window.blit(title, (20,0)) 
     pygame.display.update()
 # Quit Pygame
 pygame.quit()
