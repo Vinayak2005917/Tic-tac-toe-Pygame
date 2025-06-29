@@ -68,7 +68,10 @@ while running:
 
     if row != -1 and col != -1:
         index = row * 3 + col
-        board_state[index] = 1
+        if mouse_data.button == 1:
+            board_state[index] = 1
+        elif mouse_data.button == 3:
+            board_state[index] = 2
 
 
 
