@@ -2,20 +2,28 @@ import pygame
 from pygame.locals import *
 pygame.init()
 import status_check
+import sys,os
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 # Set up the display
 width, height = 480,560
 window = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Pygame Window")
+pygame.display.set_caption("Tic Tac Toe")
 
 #loading images
-board = pygame.image.load('assets/main_board.png')
+board = pygame.image.load(resource_path('assets/main_board.png'))
 board = pygame.transform.scale(board, (480, 480))
 
-Cross = pygame.image.load('assets/Cross.jpg')
+Cross = pygame.image.load(resource_path('assets/Cross.jpg'))
 Cross = pygame.transform.scale(Cross, (120, 120))
 
-Circle = pygame.image.load('assets/Circle.jpg')
+Circle = pygame.image.load(resource_path('assets/Circle.jpg'))
 Circle = pygame.transform.scale(Circle, (120, 120))
 
 #loading and rendering the title
@@ -95,4 +103,3 @@ while running:
     pygame.display.update()
 # Quit Pygame
 pygame.quit()
-exit()
