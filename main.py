@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 pygame.init()
+import win_check
 
 # Set up the display
 width, height = 480,560
@@ -35,8 +36,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == MOUSEBUTTONDOWN:
-            print(event)
         elif event.type == MOUSEBUTTONUP:
             print(event)
             mouse_data = event
@@ -72,51 +71,22 @@ while running:
         index = row * 3 + col
         if board_state[index] == 0 and not win:
             board_state[index] = player_number
+            print(f"player {player_number} placed at index {index}")
             if board_state.count(1) > board_state.count(2):
                 player_number = 2
             elif board_state.count(2) > board_state.count(1):
                 player_number = 1
             elif board_state.count(1) == board_state.count(2):
                 player_number = 1
-
-
-    pygame.display.update()
+            
+    
+    
 
     # Check for win condition
     if not win:
-        if board_state[0] == board_state[1] == board_state[2] != 0:
-            win = True
-            print(f"Player {board_state[0]} wins!")
-        elif board_state[3] == board_state[4] == board_state[5] != 0:
-            win = True
-            print(f"Player {board_state[3]} wins!")     
-        elif board_state[6] == board_state[7] == board_state[8] != 0:
-            win = True
-            print(f"Player {board_state[6]} wins!")     
-        elif board_state[0] == board_state[3] == board_state[6] != 0:
-            win = True
-            print(f"Player {board_state[0]} wins!")
-        elif board_state[1] == board_state[4] == board_state[7] != 0:
-            win = True
-            print(f"Player {board_state[1]} wins!")
-        elif board_state[2] == board_state[5] == board_state[8] != 0:
-            win = True
-            print(f"Player {board_state[2]} wins!")
-        elif board_state[0] == board_state[4] == board_state[8] != 0:
-            win = True
-            print(f"Player {board_state[0]} wins!")
-        elif board_state[2] == board_state[4] == board_state[6] != 0:
-            win = True
-            print(f"Player {board_state[2]} wins!")
-    
+        win = win_check.win_check(board_state, win)
 
-    
-
-
-
-
-
-
+    pygame.display.update()
 # Quit Pygame
 pygame.quit()
 exit()
