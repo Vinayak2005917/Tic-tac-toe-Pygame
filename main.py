@@ -49,28 +49,27 @@ while running:
         elif board_state[i] == 2:
             window.blit(Circle, positions[i])
 
-# and 70 < mouse_data.pos[1] < 220
-    if mouse_data.pos[0] < 140:
-        if 75 < mouse_data.pos[1] < 220:
-            board_state[0] = 1
-        elif 250 < mouse_data.pos[1] < 390:
-            board_state[3] = 1
-        elif 420 < mouse_data.pos[1] < 560:
-            board_state[6] = 1
-    elif 140 < mouse_data.pos[0] < 310:
-        if 75 < mouse_data.pos[1] < 220:
-            board_state[1] = 1
-        elif 250 < mouse_data.pos[1] < 390:
-            board_state[4] = 1
-        elif 420 < mouse_data.pos[1] < 560:
-            board_state[7] = 1
-    elif 340 < mouse_data.pos[0] < 480:
-        if 75 < mouse_data.pos[1] < 220:
-            board_state[2] = 1
-        elif 250 < mouse_data.pos[1] < 390:
-            board_state[5] = 1
-        elif 420 < mouse_data.pos[1] < 560:
-            board_state[8] = 1
+    # Draw on the board
+    x, y = mouse_data.pos
+    col = -1
+    row = -1
+    if x < 140:
+        col = 0
+    elif x < 310:
+        col = 1
+    elif x < 480:
+        col = 2
+    if 75 < y < 220:
+        row = 0
+    elif 250 < y < 390:
+        row = 1
+    elif 420 < y < 560:
+        row = 2
+
+    if row != -1 and col != -1:
+        index = row * 3 + col
+        board_state[index] = 1
+
 
 
 
