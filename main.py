@@ -26,6 +26,7 @@ positions = [
 
 board_state = [0,0,0,0,0,0,0,0,0]  # 0 for empty, 1 for Cross, 2 for Circle
 player_number = 1
+win = False
 
 # Main loop
 running = True
@@ -69,7 +70,7 @@ while running:
 
     if row != -1 and col != -1:
         index = row * 3 + col
-        if board_state[index] == 0:
+        if board_state[index] == 0 and not win:
             board_state[index] = player_number
             if board_state.count(1) > board_state.count(2):
                 player_number = 2
@@ -81,7 +82,35 @@ while running:
 
     pygame.display.update()
 
+    # Check for win condition
+    if not win:
+        if board_state[0] == board_state[1] == board_state[2] != 0:
+            win = True
+            print(f"Player {board_state[0]} wins!")
+        elif board_state[3] == board_state[4] == board_state[5] != 0:
+            win = True
+            print(f"Player {board_state[3]} wins!")     
+        elif board_state[6] == board_state[7] == board_state[8] != 0:
+            win = True
+            print(f"Player {board_state[6]} wins!")     
+        elif board_state[0] == board_state[3] == board_state[6] != 0:
+            win = True
+            print(f"Player {board_state[0]} wins!")
+        elif board_state[1] == board_state[4] == board_state[7] != 0:
+            win = True
+            print(f"Player {board_state[1]} wins!")
+        elif board_state[2] == board_state[5] == board_state[8] != 0:
+            win = True
+            print(f"Player {board_state[2]} wins!")
+        elif board_state[0] == board_state[4] == board_state[8] != 0:
+            win = True
+            print(f"Player {board_state[0]} wins!")
+        elif board_state[2] == board_state[4] == board_state[6] != 0:
+            win = True
+            print(f"Player {board_state[2]} wins!")
+    
 
+    
 
 
 
