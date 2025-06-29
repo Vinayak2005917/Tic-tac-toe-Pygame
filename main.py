@@ -25,6 +25,7 @@ positions = [
 ]
 
 board_state = [0,0,0,0,0,0,0,0,0]  # 0 for empty, 1 for Cross, 2 for Circle
+player_number = 1
 
 # Main loop
 running = True
@@ -68,13 +69,14 @@ while running:
 
     if row != -1 and col != -1:
         index = row * 3 + col
-        if mouse_data.button == 1:
-            board_state[index] = 1
-        elif mouse_data.button == 3:
-            board_state[index] = 2
-
-
-
+        if board_state[index] == 0:
+            board_state[index] = player_number
+            if board_state.count(1) > board_state.count(2):
+                player_number = 2
+            elif board_state.count(2) > board_state.count(1):
+                player_number = 1
+            elif board_state.count(1) == board_state.count(2):
+                player_number = 1
 
 
     pygame.display.update()
